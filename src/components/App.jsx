@@ -16,6 +16,17 @@ export default class App extends Component {
       number: '',
     };
   }
+  componentDidMount() {
+    const storeContacts = localStorage.getItem('contacts');
+    if (storeContacts) {
+      this.setState({ contacts: JSON.parse(storeContacts) });
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    // console.log(localStorage.getItem('contacts'));
+  }
 
   addContact = newContact => {
     const normalizedNewName = newContact.name.toLowerCase();
@@ -27,9 +38,15 @@ export default class App extends Component {
       toast.error('This is an error!');
       return;
     }
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-    }));
+
+    this.setState(
+      prevState => ({
+        contacts: [...prevState.contacts, newContact],
+      }),
+      () => {
+        localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      }
+    );
   };
 
   handleChange = e => {
@@ -40,16 +57,20 @@ export default class App extends Component {
     e.preventDefault();
     const newContact = {
       id: nanoid(),
-      nombre: this.state.name,
-      numero: this.state.number,
+      name: this.state.name,
+      number: this.state.number,
     };
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-      name: '',
-      number: '',
-    }));
+    this.setState(
+      prevState => ({
+        contacts: [...prevState.contacts, newContact],
+        name: '',
+        number: '',
+      }),
+      () => {
+        localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      }
+    );
   };
-
   deleteContact = id => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
@@ -68,7 +89,6 @@ export default class App extends Component {
           name={this.state.name}
           number={this.state.number}
         />
-
         <h2 className={styles.contacts}>Contacts</h2>
         <Filter filter={this.state.filter} handleChange={this.handleChange} />
         <ContactList
