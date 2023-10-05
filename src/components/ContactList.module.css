@@ -1,0 +1,22 @@
+.contact__list {
+  display: flex;
+  gap: 15px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.contact__btn {
+  width: fit-content;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  transition: background-color 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    cursor: pointer;
+    background-color: #928dab;
+    color: aliceblue;
+  }
+}

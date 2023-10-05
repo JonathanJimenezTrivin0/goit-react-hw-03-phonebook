@@ -1,0 +1,29 @@
+.form {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form__input {
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+}
+.form__btn {
+  text-align: center;
+  width: 150px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  transition: background-color 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    cursor: pointer;
+    background-color: #928dab;
+    color: aliceblue;
+  }
+}
